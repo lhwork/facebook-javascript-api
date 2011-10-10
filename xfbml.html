@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xmlns:fb="https://www.facebook.com/2008/fbml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Facebook JavaScript & OAuth 2.0 xfbml Demo</title>
+    </head>
+    <body>
+        <div id="fb-root"></div>
+        <script type="text/javascript">
+            window.fbAsyncInit = function(){
+                FB.init({ appId: '211488312251165',
+                    status: true,
+                    cookie: true,
+                    xfbml: true,
+                    oauth: true});
+                
+                // friends
+                var friendsDiv = document.getElementById('friends_profile_pics');
+                FB.getLoginStatus(function(response) {
+                    if (response.status != 'connected') {
+                        friendsDiv.innerHTML = '<em>You are not connected</em>';
+                        return;
+                    }
+                
+                    FB.api({ method: 'friends.get' }, function(result) {
+                        var markup = '';
+                        var numFriends = result ? Math.min(10, result.length) : 0;
+                        if (numFriends > 0) {
+                            for (var i=0; i<numFriends; i++) {
+                                markup += ('<fb:profile-pic size="square" ' +
+                                            'uid="' + result[i] + '" ' +
+                                            'facebook-logo="true"' +
+                                            '></fb:profile-pic>');
+                            }
+                        }
+                        friendsDiv.innerHTML = markup;
+                        FB.XFBML.parse(friendsDiv);
+                    });
+                });
+            };
+            (function() {
+                var e = document.createElement('script');
+                e.type = 'text/javascript';
+                e.async = true;
+                e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                document.getElementById('fb-root').appendChild(e);
+            }());
+
+        </script>
+
+        <div><a href="/">BACK HOME</a></div>
+        <h3>Facebook JavaScript & OAuth 2.0 xfbml Demo</h3>
+        <br/>
+        <fb:like send="true" width="450" show_faces="true"></fb:like>
+        <br/>
+        <fb:share-button href="http://facebook-javascript-api.appspot.com/xfbml.html" type="button_count"></fb:share-button>        
+        <br/>
+        <div id="friends_profile_pics"></div>
+        <br/>
+        <fb:login-button autologoutlink="true" scope="email,user_birthday,status_update,publish_stream"></fb:login-button>
+        <br/>
+        <p></p>
+        <fb:activity site="facebook-javascript-api.appspot.com" width="300" height="300" header="true" recommendations="false"></fb:activity>
+        <p></p>
+        <fb:comments href="http://facebook-javascript-api.appspot.com/test.html" num_posts="5" width="500"></fb:comments>
+        <br/>
+        <p></p>
+        <fb:like-box profile-id="211488312251165" width="292" show_faces="true" stream="false" header="true"></fb:like-box>
+        <p></p>
+        <fb:fan profile-id="211488312251165"></fb:fan>
+        <p></p>
+        <fb:live-stream event_app_id="211488312251165" width="400" height="500" always_post_to_friends="true"></fb:live-stream>
+        <p></p>
+    </body>
+</html>
