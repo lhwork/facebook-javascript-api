@@ -15,6 +15,10 @@ handlers:
   static_files: html5.html
   upload: html5.html
 
+- url: /invite.html
+  static_files: invite.html
+  upload: invite.html
+
 - url: /.*
   static_files: index.html
   upload: index.html

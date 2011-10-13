@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" xmlns:fb="https://www.facebook.com/2008/fbml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Facebook JavaScript & OAuth 2.0 xfbml Demo</title>
+    </head>
+    <body>
+        <div id="fb-root"></div>
+        <script type="text/javascript">
+            window.fbAsyncInit = function(){
+                FB.init({ appId: '211488312251165',
+                    status: true,
+                    cookie: true,
+                    xfbml: true,
+                    oauth: true});
+                
+                FB.getLoginStatus(function(response) {
+                    if (response.session) {
+                        FB.XFBML.parse(document.getElementById('invite_form'));
+                    } else {
+                        disableInvite();
+                    }
+                }); 
+            };
+            (function() {
+                var e = document.createElement('script');
+                e.type = 'text/javascript';
+                e.async = true;
+                e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                document.getElementById('fb-root').appendChild(e);
+            }());
+
+            function disableInvite() {
+                document.getElementById('invite_form').innerHTML = '<p>Please login and invoke the "Invite My Friends" function again.</p>';
+            };
+
+        </script>
+        <div id="invite_form">
+         <fb:serverFbml>
+           <script type="text/fbml">
+             <fb:fbml>
+                <fb:request-form
+                     action='http://www.takwing.idv.hk/facebook/demoapp_jssdk/index.php'
+                     method='POST'
+                     type='eLearning'
+                     content="Let's learn Facebook App Development
+                             <fb:req-choice url='http://www.takwing.idv.hk/tech/fb_dev/index.php' label='Register'/>"
+                     <fb:multi-friend-selector actiontext="Select your IT friends.">
+                     </fb:multi-friend-selector>
+                </fb:request-form>
+              </fb:fbml>
+           </script>
+         </fb:serverFbml>
+        </div>
+    </body>
+</html>
