@@ -4,21 +4,25 @@ runtime: python
 api_version: 1
 
 handlers:
+- url: /
+  static_files: index.html
+  upload: index.html
+
 - url: /static
   static_dir: static
 
-- url: /xfbml.html
-  static_files: xfbml.html
-  upload: xfbml.html
+#- url: /xfbml.html
+#  static_files: xfbml.html
+#  upload: xfbml.html
+#
+#- url: /html5.html
+#  static_files: html5.html
+#  upload: html5.html
+#
+#- url: /invite.html
+#  static_files: invite.html
+#  upload: invite.html
 
-- url: /html5.html
-  static_files: html5.html
-  upload: html5.html
-
-- url: /invite.html
-  static_files: invite.html
-  upload: invite.html
-
-- url: /.*
-  static_files: index.html
-  upload: index.html
+- url: /(.*\.html)
+  static_files: \1
+  upload: (.*\.html)
